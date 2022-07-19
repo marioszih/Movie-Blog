@@ -1,0 +1,48 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+    <div class="sm:w-3/5 w-4/5 mx-auto">
+        <h1 class="pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center">
+            {{ movie.title }}
+        </h1>
+
+        <div class="py-10 text-center">
+            <div class="inline-block sm:pt-1">
+                <h2 class="font-bold">
+                    Created by: MZ
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    28-01-2022 4 min. read
+                </p>
+            </div>
+        <img
+            src="{{ movie.imagePath }}"
+            class="rounded-xl w-full shadow-xl"
+            alt="???"
+        />
+            <p class="text-xl py-6">
+                {{ movie.description }}
+            </p>
+            {% for actor in movie.actors %}
+                {{ actor.name }}
+            {% endfor %}
+        </div>
+        {% if app.user %}
+        <div>
+            <a 
+                href="/movies/edit/{{ movie.id }}"
+                class="border-gray-500 bg-blue-500 font-bold py-4 px-4 rounded transition-all hover:bg-gray-500">
+                Edit Movie
+            </a>
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                <a 
+                    href="/movies/delete/{{ movie.id }}"
+                    class="bg-red-500 font-bold py-4 px-4 ml-5 rounded transition-all hover:bg-gray-500">
+                    Delete Movie
+                </a>
+            {% endif %}
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

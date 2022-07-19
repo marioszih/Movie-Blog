@@ -1,0 +1,36 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+            <h1 class="text-6xl pt-12 pb-8">
+                Movie Blog 
+            </h1>
+            {% if not app.user %}
+                <span class="font-light text-gray-500 bold text-xl">
+                    Hello and welcome to Movie Blog.<br>
+                    You can either register to become a user, or login if you
+                    already have an account.
+                </span>
+            {% else %}
+                <span class="font-light text-gray-500 bold text-xl">
+                    Welcome back {{email}}.<br>
+                    Feel free to browse around or edit some items. <br>
+                    Remember you can always upgrade to admin if you haven't already!
+                </span>
+            {% endif %}
+        </div>
+        {% if not app.user %}
+            <a 
+                href="/register"
+                class="bg-blue-500 text-white font-bold py-2 px-4 rounded transition-all hover:bg-gray-500">
+                Register
+            </a>
+            <a 
+                href="/login"
+                class="bg-blue-500 text-white font-bold py-2 px-4 ml-3 mr-8 rounded transition-all hover:bg-gray-500">
+                Login
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="md:grid lg:grid-cols-3 gap-1 w-4/5 mx-auto py-15 ">
+ {% for user in users %}
+        <div class="text-center pt-8 pb-4">
+            <h1 class="text-gray-700 font-bold text-5xl py-2">
+                <br>
+                <br>
+            </h1>
+            <span class="text-gray-500 font-bold text-2xl">
+                <span class="text-medium text-gray-800">{{ user.email }}
+            </span>
+            {% if current_email != user.email%}
+                {% if user.roles[0] != "ROLE_SUPER_ADMIN" %}
+                    <div>
+                        <br>
+                        <a href="users/delete/{{ user.email }}" class="uppercase border border-gray-500 text-white text-lg py-4 px-12 rounded transition transition-all bg-red-500 hover:bg-gray-800 hover:text-white">
+                            Remove User
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}  

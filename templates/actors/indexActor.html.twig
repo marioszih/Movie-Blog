@@ -1,0 +1,49 @@
+{% extends "./base.html.twig" %}
+
+{% block body %}
+    <div class="w-4/5 m-auto text-center">
+        <div class="py-12">
+            <h1 class="text-6xl pt-12 pb-8">
+                Actors Review ({{ actors|length }})
+            </h1>
+        </div>
+    </div>
+    {% if app.user %}
+        <div class="mx-auto w-4/5 my-8">
+            <a 
+                href="/actors/create" 
+                class="uppercase border border-gray-500 text-lg py-4 px-6 rounded transition transition-all bg-blue-500 text-white hover:bg-gray-800 hover:text-white">
+                Add New Actor
+            </a>
+        </div>
+    {% endif %}
+    <div class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 ">
+        <!-- Review Item -->
+        {% for actor in actors %}
+            <div class="text-center pt-8 pb-4">
+                <img
+                    src="{{ actor.imagePath }}"
+                    alt="??"
+                    class="shadow-xl rounded-md"
+                />
+                <h2 class="text-gray-700 font-bold text-3xl py-2">
+                    {{ actor.name }}
+                </h2>
+                <span class="text-gray-500">
+                    Born: <span class="italic text-sm text-gray-800"> {{ actor.birthYear}}
+                </span>
+                <p><br></p>
+                {% if app.user %}
+                    <a href="/actors/edit/{{ actor.id }}" class="uppercase border border-gray-500 text-white text-lg py-4 px-4 rounded transition transition-all bg-blue-500 hover:bg-gray-800 hover:text-white">
+                        Edit Info
+                    </a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN')%}
+                        <a href="/actors/delete/{{ actor.id }}" class="uppercase border border-gray-500 text-white text-lg py-4 px-4 ml-2 rounded transition transition-all bg-red-500 hover:bg-gray-800 hover:text-white">
+                            Delete Actor
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

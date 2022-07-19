@@ -1,0 +1,29 @@
+version: "3"
+services:
+    www:
+        build: .
+        container_name: 'blog-server'
+        volumes:
+            - ".:/var/www/html"
+        ports:
+            - "80:80"
+            - "443:443"
+            
+    db: #name of the db(insted of localhost)
+        image: mariadb:10.5.9
+        container_name: 'movies-mysql'
+        restart: always
+        ports:
+            - '13306:3306' #ta ports pou epikoinonoun(an thelo tin basi tou docker:13306)
+        environment:
+            MYSQL_ROOT_PASSWORD: '1097'
+            MYSQL_USER: 'root'
+            MYSQL_PASSWORD: '1097'
+            MYSQL_DATABASE: 'movies'
+        volumes:
+            - db_data:/var/mysql/movies
+    
+volumes:
+  db_data:
+
+  #otan trexei kanei ena adeio db. Trexo ta migrations kai ta fixtures gia na fortoso data
